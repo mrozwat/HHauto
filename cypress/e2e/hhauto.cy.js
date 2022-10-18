@@ -77,31 +77,38 @@ describe('hh take url',()=>{
     
 
     it('otklik',()=>{
-        
+        cy.viewport(1920, 1080)
         for (let y=0;y<=urlArray.length;y++){
         
     
-            cy.visit(urlArray[y+1]).then(()=>{
+            cy.visit(urlArray[y+80]).then(()=>{ //postavit 1
 
                  
 
-                  cy.get('.vacancy-action_stretched > .bloko-button > span').then(($el)=>{
-                    statusO=$el.text();  
-                    if(statusO=='Откликнуться'){
+                cy.get('.noprint > .vacancy-actions').then(($el)=>{
+                  
+                    if($el.text().includes('Откликнуться')){
 
                         cy.get('.bloko-header-section-1 > span').then(($el)=>{
                             vacanSname=$el.text()
                             cy.get(':nth-child(2) > .bloko-columns-row > .bloko-column > .block-employer--jHuyqacEkkrEkSl3Yg3M > .wrapper--FVo3cUofDgv3zkHBdMP1 > .vacancy-company-redesigned > .vacancy-company-details > .vacancy-company-name > .bloko-link > .bloko-header-section-2 > span').then(($el)=>{
                                 companyName=$el.text()
 
-                                console.log(companyName)
-                                console.log(vacanSname)
-                                cy.get('.vacancy-action_stretched > .bloko-button').click();
-                                cy.get('[data-qa="vacancy-response-letter-informer"] > .bloko-button > span').click();
+                                
+                                cy.get('.wrapper-flat--H4DVL_qLjKLCo1sytcNI').contains('Откликнуться').click();
+                                cy.wait(1000)
+
+                                cy.get('.main-content').then(($el)=>{
+console.log($el.text())
+console.log($el.text().includes('несколько вопросов'))
+                                    if($el.text().includes('несколько вопросов')){
+                                    }else{
+
+                                        cy.get('[data-qa="vacancy-response-letter-informer"] > .bloko-button > span').click();
                                 cy.get('.bloko-textarea').type(`
                                 Добрый день, я хотел бы получить вакансию ${vacanSname} Junior, мой опыт  в тестировании  составляет 6 месяцев.
                                 Мои основные навыки это javaScript/cypress/jest/charles/postaman/sql/git/html/css.
-                                Хотелось бы получить работу в вашей компании'${companyName}' поскольку она являетесь крупной компанией с возможностью карьерного роста и развития.
+                                Хотелось бы получить работу в вашей компании '${companyName}'  поскольку она являетесь крупной компанией с возможностью карьерного роста и развития.
                                 
                                 Мое резюме: https://ozwat.ru/rez.pdf
                                 GitHub:https://github.com/mrozwat
@@ -111,7 +118,14 @@ describe('hh take url',()=>{
                                 Телефон +79373970241
                                 Email ozwatandreev@gmail.com`)
                                 cy.get('.bloko-form-row > .bloko-button > span').click()
+
+                                    }
+                                    
+                                })
+
                                 
+                                
+                             
                             })
 
 
