@@ -81,7 +81,7 @@ describe('hh take url',()=>{
         for (let y=0;y<=urlArray.length;y++){
         
     
-            cy.visit(urlArray[y+80]).then(()=>{ //postavit 1
+            cy.visit(urlArray[y+1]).then(()=>{ //postavit 1
 
                  
 
@@ -98,10 +98,11 @@ describe('hh take url',()=>{
                                 cy.get('.wrapper-flat--H4DVL_qLjKLCo1sytcNI').contains('Откликнуться').click();
                                 cy.wait(1000)
 
-                                cy.get('.main-content').then(($el)=>{
-console.log($el.text())
-console.log($el.text().includes('несколько вопросов'))
-                                    if($el.text().includes('несколько вопросов')){
+                                    cy.get('.main-content').then(($el)=>{
+                                        console.log($el.text())
+                                        console.log($el.text().includes('отклика на эту вакансию'  ))
+
+                                    if($el.text().includes('отклика на эту вакансию'  )){ //&& $el.to.have.class('bloko-modal-container')
                                     }else{
 
                                         cy.get('[data-qa="vacancy-response-letter-informer"] > .bloko-button > span').click();
@@ -137,8 +138,7 @@ console.log($el.text().includes('несколько вопросов'))
             });
             
             
-            // if (document.querySelector('.vacancy-action_stretched > .bloko-button > span'))
-            // cy.get('.vacancy-action_full-size > .bloko-button > span')
+           
         }
 
     })
